@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 
-import { HomePage } from '../home/home.component';
+import { HomeComponent } from '../home/home.component';
 import { ScanComponent } from '../scan/scan.component';
 
 @Component({
   template: `
     <ion-tabs>
       <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>
-      <ion-tab [root]="tab3Root" tabTitle="Scan" tabIcon="camera"></ion-tab>
-      <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>
+      <ion-tab [root]="tab2Root" tabTitle="Scan" tabIcon="camera"></ion-tab>
     </ion-tabs>`
 })
-export class TabsPage {
+export class TabsComponent {
 
-  tab1Root = HomePage;
+  tab1Root = HomeComponent;
   tab2Root = ScanComponent;
 
   constructor () {

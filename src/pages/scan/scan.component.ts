@@ -5,12 +5,12 @@ import { Component, OnInit } from '@angular/core';
   template: `
     <ion-header>
       <ion-navbar>
-        <ion-title>Home</ion-title>
+        <ion-title>Scan</ion-title>
       </ion-navbar>
     </ion-header>
 
     <ion-content>
-      <h2>Overview</h2>
+      <h2>Scan</h2>
     </ion-content>
   `
 })
