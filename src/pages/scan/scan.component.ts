@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ScanService} from "./scan.service";
+import { ScanService } from "./scan.service";
+import Tesseract from 'tesseract.js';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'scan-component',
@@ -13,20 +15,44 @@ import {ScanService} from "./scan.service";
     <ion-content>
       <h2>Scan</h2>
       
-      <button ion-button (click)="getPicture($event)">Neue Aufnahme</button>
+      <button ion-button (click)="addNewEntry($event)">Neue Aufnahme</button>
+      <span>{{textObject?.confidence}}</span><br>
+      <p>{{textObject?.text}}</p>
+      <img id="pic" [src]="domSanitizer.bypassSecurityTrustUrl(imagePath)"/>
     </ion-content>
   `
 })
 
 export class ScanComponent implements OnInit {
-  constructor (private scanService: ScanService) {
+
+  textObject: any;
+  imagePath: string;
+
+  constructor (private scanService: ScanService,
+               private domSanitizer: DomSanitizer) {
   }
 
   ngOnInit () {
   }
 
-  getPicture($event= null) {
-    let image = this.scanService.getCameraImage();
+  addNewEntry ($event = null) {
+    this.scanService.getCameraImage().then((imageData: any) => {
+      this.imagePath = imageData;
+      let elem = document.getElementById('pic');
+      return this.getStringFromImage(imageData);
+    });
+  }
 
+  getStringFromImage (imageData: any) {
+    const options = {
+      lang: 'deu'
+    };
+    Tesseract.recognize(imageData, options)
+      .progress((updateObj: any) => {
+        console.log('progress: ', updateObj);
+      })
+      .then((result: any) => {
+        this.textObject = result;
+      });
   }
 }
