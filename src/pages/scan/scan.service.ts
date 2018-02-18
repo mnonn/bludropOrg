@@ -18,11 +18,13 @@ export class ScanService {
         mediaType: this.camera.MediaType.PICTURE
       };
       return this.camera.getPicture(options).then((imageData: any) => {
-        // let base64Image = 'data:image/jpeg;base64,' + imageData;
         return Promise.resolve(imageData);
       }).catch((e) => {
         console.error(e);
+        return Promise.resolve(null);
       });
+    } else {
+      return Promise.resolve('assets/training/sample_1.jpg');
     }
   }
 }

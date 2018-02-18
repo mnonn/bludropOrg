@@ -10,7 +10,10 @@
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "start:dev": "ionic cordova run android --device --livereload"
+    "start:remote:dev": "ionic cordova run android --device --livereload",
+    "start:remote": "ionic cordova run android --device",
+    "start:lab": "ionic lab",
+    "start:dev": "ionic serve"
   },
   "dependencies": {
     "@angular/common": "5.0.3",
