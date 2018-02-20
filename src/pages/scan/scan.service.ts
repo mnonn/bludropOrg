@@ -59,11 +59,11 @@ export class ScanService {
       lines.forEach((line: any) => {
         if (__.isNotEmptyArray(line[ 'words' ])) {
           for (let i = 0; i < line[ 'words' ].length; i++) {
-            let word = line['words'][i];
+            let word = line[ 'words' ][ i ];
             //validate words
             //TODO parse numbers -> prices, ids
-            if(word.length < 1 || i < 1) {
-              line['words'].splice(i,1);
+            if (word.length < 1 || i < 1) {
+              line[ 'words' ].splice(i, 1);
             }
           }
         }
