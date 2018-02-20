@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { UtilService } from '../helper/util.service';
 import { ScanService } from '../pages/scan/scan.service';
 import { ToastHelperService } from '../pages/ui-helper/toast-helper.service';
 import { MyApp } from './app.component';
@@ -37,6 +38,7 @@ import { Camera } from '@ionic-native/camera';
     ScanService,
     Camera,
     ToastHelperService,
+    UtilService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastHelperService } from '../ui-helper/toast-helper.service';
 import { ScanService } from "./scan.service";
-import Tesseract from 'tesseract.js';
 
 @Component({
   selector: 'scan-component',
@@ -15,12 +14,23 @@ import Tesseract from 'tesseract.js';
     <ion-content padding>
       <div>
         <h2>Einträge hinzufügen</h2>
-        <button ion-button (click)="addNewEntry($event)">Neue Aufnahme</button>
+        <button ion-button (click)="addNewEntry()">Neue Aufnahme</button>
         <br>
-        <div *ngIf="textObject">
-          <span>Accuracy: {{textObject?.confidence}}</span><br>
-          <p>{{textObject?.text}}</p>
-        </div>
+        <ion-grid no-padding>
+          <ion-row *ngIf="textObject">
+            <ion-col>
+              <span>Genauigkeit: {{textObject?.confidence}}%</span>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let line of textObject?.lines">
+            <ion-col *ngIf="line?.words?.length > 1">
+              <span *ngFor="let word of line?.words; let tail = last; let idx = index">
+                <span *ngIf="word.text?.length > 2 && idx > 0">[{{word.text}}]</span>
+              </span>
+              <br *ngIf="tail">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
         <ion-card  *ngIf="imagePath">
           <ion-card-content>
             <img id="pic" src="{{imagePath}}"/>
@@ -44,35 +54,20 @@ export class ScanComponent implements OnInit {
   ngOnInit () {
   }
 
-  resetProgress(){
+  resetProgress () {
     this.textObject = null;
     this.imagePath = null;
     this.progress = [];
   }
 
-  addNewEntry ($event = null) {
+  addNewEntry () {
     this.resetProgress();
-    this.scanService.getCameraImage().then((imageData: any) => {
+    this.scanService.getCameraImage().then((imageData: string) => {
       this.imagePath = imageData;
-      return this.getStringFromImage(imageData);
+      return this.scanService.getStringFromImage(imageData).then((result: Object) => {
+        this.textObject = result;
+      });
     });
   }
 
-  getStringFromImage (imageData: any) {
-    console.time('ocr');
-    const options = {
-      lang: 'deu'
-    };
-    Tesseract.recognize(imageData, options).progress((updateObj: any) => {
-      this.progress.push(updateObj);
-    }).catch((e: any) => {
-      console.error(e);
-    }).then((result: any) => {
-      this.textObject = result;
-    }).finally((result: any) => {
-      this.progress = null;
-      this.toast.createToast('finished').present();
-      console.timeEnd('ocr');
-    });
-  }
 }
