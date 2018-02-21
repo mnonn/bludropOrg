@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ToastHelperService } from '../ui-helper/toast-helper.service';
+import { Component, OnInit, Injector } from '@angular/core';
+import { ReceiptScanStrategy } from './scan.api';
 import { ScanService } from "./scan.service";
 
 @Component({
@@ -23,9 +23,9 @@ import { ScanService } from "./scan.service";
             </ion-col>
           </ion-row>
           <ion-row *ngFor="let line of textObject?.lines">
-            <ion-col *ngIf="line?.words?.length > 1">
+            <ion-col>
               <span *ngFor="let word of line?.words; let tail = last; let idx = index">
-                <span *ngIf="word.text?.length > 2 && idx > 0">[{{word.text}}]</span>
+                <span >[{{word.text}}]</span>
               </span>
               <br *ngIf="tail">
             </ion-col>
@@ -48,7 +48,7 @@ export class ScanComponent implements OnInit {
     progress: Object[] = [];
 
     constructor (private scanService: ScanService,
-                 private toast: ToastHelperService) {
+                 private injector: Injector) {
     }
 
     ngOnInit () {
@@ -62,9 +62,10 @@ export class ScanComponent implements OnInit {
 
     addNewEntry () {
         this.resetProgress();
-        this.scanService.getCameraImage().then((imageData: string) => {
+        let scanStrategy = new ReceiptScanStrategy(this.injector);
+        this.scanService.getCameraImage(scanStrategy).then((imageData: string) => {
             this.imagePath = imageData;
-            return this.scanService.getStringFromImage(imageData).then((result: Object) => {
+            return this.scanService.getStringFromImage(imageData, scanStrategy).then((result: Object) => {
                 this.textObject = result;
             });
         });
