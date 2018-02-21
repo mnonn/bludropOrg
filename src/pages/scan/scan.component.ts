@@ -3,8 +3,8 @@ import { ToastHelperService } from '../ui-helper/toast-helper.service';
 import { ScanService } from "./scan.service";
 
 @Component({
-  selector: 'scan-component',
-  template: `
+    selector: 'scan-component',
+    template: `
     <ion-header>
       <ion-navbar>
         <ion-title>Scan</ion-title>
@@ -43,31 +43,31 @@ import { ScanService } from "./scan.service";
 
 export class ScanComponent implements OnInit {
 
-  textObject: any;
-  imagePath: string;
-  progress: Object[] = [];
+    textObject: any;
+    imagePath: string;
+    progress: Object[] = [];
 
-  constructor (private scanService: ScanService,
-               private toast: ToastHelperService) {
-  }
+    constructor (private scanService: ScanService,
+                 private toast: ToastHelperService) {
+    }
 
-  ngOnInit () {
-  }
+    ngOnInit () {
+    }
 
-  resetProgress () {
-    this.textObject = null;
-    this.imagePath = null;
-    this.progress = [];
-  }
+    resetProgress () {
+        this.textObject = null;
+        this.imagePath = null;
+        this.progress = [];
+    }
 
-  addNewEntry () {
-    this.resetProgress();
-    this.scanService.getCameraImage().then((imageData: string) => {
-      this.imagePath = imageData;
-      return this.scanService.getStringFromImage(imageData).then((result: Object) => {
-        this.textObject = result;
-      });
-    });
-  }
+    addNewEntry () {
+        this.resetProgress();
+        this.scanService.getCameraImage().then((imageData: string) => {
+            this.imagePath = imageData;
+            return this.scanService.getStringFromImage(imageData).then((result: Object) => {
+                this.textObject = result;
+            });
+        });
+    }
 
 }

@@ -4,7 +4,7 @@ import { HomeComponent } from '../home/home.component';
 import { ScanComponent } from '../scan/scan.component';
 
 @Component({
-  template: `
+    template: `
     <ion-tabs>
       <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>
       <ion-tab [root]="tab2Root" tabTitle="Scan" tabIcon="camera"></ion-tab>
@@ -12,10 +12,10 @@ import { ScanComponent } from '../scan/scan.component';
 })
 export class TabsComponent {
 
-  tab1Root = HomeComponent;
-  tab2Root = ScanComponent;
+    tab1Root = HomeComponent;
+    tab2Root = ScanComponent;
 
-  constructor () {
+    constructor () {
 
-  }
+    }
 }

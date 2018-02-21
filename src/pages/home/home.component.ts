@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  selector: 'home-component',
-  template: `
+    selector: 'home-component',
+    template: `
     <ion-header>
       <ion-navbar>
         <ion-title>Overview</ion-title>
@@ -17,8 +17,8 @@ import { NavController } from 'ionic-angular';
 })
 export class HomeComponent {
 
-  constructor (public navCtrl: NavController) {
+    constructor (public navCtrl: NavController) {
 
-  }
+    }
 
 }

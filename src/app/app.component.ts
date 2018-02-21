@@ -6,17 +6,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsComponent } from '../pages/tabs/tabs.component';
 
 @Component({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`
+    template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage:any = TabsComponent;
+    rootPage: any = TabsComponent;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
-    });
-  }
+    constructor (platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+        platform.ready().then(() => {
+            // Okay, so the platform is ready and our plugins are available.
+            // Here you can do any higher level native things you might need.
+            statusBar.styleDefault();
+            splashScreen.hide();
+        });
+    }
 }

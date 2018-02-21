@@ -15,31 +15,32 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomeComponent,
-    TabsComponent,
-    ScanComponent
-  ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp)
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomeComponent,
-    TabsComponent,
-    ScanComponent
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    ScanService,
-    Camera,
-    ToastHelperService,
-    UtilService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+    declarations: [
+        MyApp,
+        HomeComponent,
+        TabsComponent,
+        ScanComponent
+    ],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(MyApp)
+    ],
+    bootstrap: [ IonicApp ],
+    entryComponents: [
+        MyApp,
+        HomeComponent,
+        TabsComponent,
+        ScanComponent
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        ScanService,
+        Camera,
+        ToastHelperService,
+        UtilService,
+        {provide: ErrorHandler, useClass: IonicErrorHandler}
+    ]
 })
-export class AppModule {}
+export class AppModule {
+}
